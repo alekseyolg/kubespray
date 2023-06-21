@@ -2,7 +2,7 @@
 FROM ubuntu:jammy-20230308
 # Some tools like yamllint need this
 # Pip needs this as well at the moment to install ansible
-# (and potentially other packages) 
+# (and potentially other packages)
 # See: https://github.com/pypa/pip/issues/10219
 ENV LANG=C.UTF-8 \
     DEBIAN_FRONTEND=noninteractive \
@@ -29,7 +29,7 @@ RUN apt update -q \
        openssh-client \
     && pip install --no-compile --no-cache-dir \
        ansible==5.7.1 \
-       ansible-core==2.12.5 \
+       ansible-core==2.12.10 \
        cryptography==3.4.8 \
        jinja2==3.1.2 \
        netaddr==0.8.0 \
@@ -41,4 +41,4 @@ RUN apt update -q \
     && echo $(curl -L https://dl.k8s.io/release/$KUBE_VERSION/bin/linux/$(dpkg --print-architecture)/kubectl.sha256) /usr/local/bin/kubectl | sha256sum --check \
     && chmod a+x /usr/local/bin/kubectl \
     && rm -rf /var/lib/apt/lists/* /var/log/* \
-    && find / -type d -name '*__pycache__' -prune -exec rm -rf {} \;
+    && find /usr -type d -name '*__pycache__' -prune -exec rm -rf {} \;

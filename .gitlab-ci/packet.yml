@@ -31,14 +31,6 @@ packet_ubuntu20-calico-aio:
   variables:
     RESET_CHECK: "true"
 
-packet_ubuntu20-calico-aio-ansible-2_11:
-  stage: deploy-part1
-  extends: .packet_periodic
-  when: on_success
-  variables:
-    ANSIBLE_MAJOR_VERSION: "2.11"
-    RESET_CHECK: "true"
-
 # ### PR JOBS PART2
 
 packet_ubuntu20-aio-docker:
@@ -107,6 +99,16 @@ packet_debian11-calico:
   when: on_success
 
 packet_debian11-docker:
+  stage: deploy-part2
+  extends: .packet_pr
+  when: on_success
+
+packet_debian12-calico:
+  stage: deploy-part2
+  extends: .packet_pr
+  when: on_success
+
+packet_debian12-docker:
   stage: deploy-part2
   extends: .packet_pr
   when: on_success
